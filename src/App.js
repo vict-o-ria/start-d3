@@ -33,14 +33,14 @@ function App() {
             </ul>
           </nav>
           <Switch>
-            <Route path="/circles">
-              <Circles data={data} updateData={updateData} />
-            </Route>
             <Route path="/chart">
               <Chart />
             </Route>
             <Route path="/circle-packing">
               <CirclePacking />
+            </Route>
+            <Route path="/circles">
+              <Circles data={data} updateData={updateData} />
             </Route>
           </Switch>
         </div>

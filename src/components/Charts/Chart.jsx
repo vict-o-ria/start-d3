@@ -7,13 +7,15 @@ export const Chart = () => {
   const containerRef = useRef(null);
 
   useLayoutEffect(() => {
+    // Определяем ось x
     const x = d3
       .scaleLinear()
-      .domain([0, d3.max(data) + 15])
+      .domain([0, d3.max(data) + 5])
       .range([0, width]);
 
     const xAxis = d3.axisBottom(x).ticks(data.length).tickSizeOuter(0);
 
+    //Определяем ось y
     const y = d3
       .scaleBand()
       .domain(d3.range(data.length))
@@ -25,26 +27,31 @@ export const Chart = () => {
       .tickFormat((val) => `#${val + 1}`)
       .tickSizeOuter(0);
 
+    //Выбираем контейнер где будем показывать диаграмму
     const svg = d3.select(containerRef.current);
 
+    //Определяем свойства контейнера
     svg
       .attr("width", width)
       .attr("font-family", "sans-serif")
       .attr("font-size", "10")
       .attr("text-anchor", "end");
 
+    //Определяем столбцы диаграммы
     const bar = svg
       .selectAll("g")
       .data(data)
       .join("g")
       .attr("transform", (d, i) => `translate(20,${y(i)})`);
 
+    // Рисуем столбцы
     bar
       .append("rect")
       .attr("fill", "steelblue")
       .attr("width", x)
       .attr("height", y.bandwidth() - 1);
 
+    // Добавляем текст
     bar
       .append("text")
       .attr("fill", "white")
@@ -53,6 +60,7 @@ export const Chart = () => {
       .attr("dy", "0.35em")
       .text((d) => d);
 
+    // Отрисовывем оси
     svg
       .append("g")
       .call(xAxis)
@@ -63,8 +71,7 @@ export const Chart = () => {
 
   return (
     <div style={{ display: "flex", width: "100%", alignItems: "center" }}>
-      <svg width="100%" ref={containerRef}>
-      </svg>
+      <svg width="100%" ref={containerRef}></svg>
     </div>
   );
 };
