@@ -18,12 +18,13 @@ export const Circles = ({ data, updateData }) => {
 
   useLayoutEffect(() => {
     if (Array.isArray(data)) {
-      const update = select("g").selectAll("circle").data(data);
+      const update = select(containerRef.current).select("g")
+      .selectAll("circle")
+      .data(data);
 
       update
-        .enter()
-        .append("circle")
-        .merge(update)
+        .join("circle")
+        // .merge(update)
         .attr("r", (d) => d)
         .attr("cx", (_, i) => width * (i + 1))
         .attr("cy", () => Math.random() * 100)
