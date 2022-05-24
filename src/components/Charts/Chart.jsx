@@ -41,9 +41,9 @@ export const Chart = () => {
     const bar = svg
       .selectAll("g")
       .data(data)
-      // .join("g") // в данном случае заменит две следующие команды
-      .enter()
-      .append("g")
+      .join("g") // в данном случае заменит две следующие команды
+      // .enter()
+      // .append("g")
       .attr("transform", (d, i) => `translate(20,${y(i)})`);
 
     // Рисуем столбцы
@@ -68,7 +68,10 @@ export const Chart = () => {
       .call(xAxis)
       .attr("transform", `translate(20, ${y.range()[1] + 2})`);
 
-    svg.append("g").call(yAxis).attr("transform", `translate(20, 0)`);
+    svg
+      .append("g")
+      .call(yAxis)
+      .attr("transform", `translate(20, 0)`);
   }, []);
 
   return (
