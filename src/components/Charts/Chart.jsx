@@ -41,7 +41,9 @@ export const Chart = () => {
     const bar = svg
       .selectAll("g")
       .data(data)
-      .join("g")
+      // .join("g") // в данном случае заменит две следующие команды
+      .enter()
+      .append("g")
       .attr("transform", (d, i) => `translate(20,${y(i)})`);
 
     // Рисуем столбцы

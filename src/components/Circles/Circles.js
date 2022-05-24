@@ -18,20 +18,26 @@ export const Circles = ({ data, updateData }) => {
 
   useLayoutEffect(() => {
     if (Array.isArray(data)) {
-      const update = select(containerRef.current).select("g")
+      const update = select(containerRef.current)
+      .select("g")
       .selectAll("circle")
       .data(data);
 
+      // update.exit().remove();
+
       update
         .join("circle")
+        // .enter()
+        // .append("circle")
         // .merge(update)
+        .attr("r", 0)
+        .transition()
         .attr("r", (d) => d)
         .attr("cx", (_, i) => width * (i + 1))
         .attr("cy", () => Math.random() * 100)
         .attr("stroke", (_, i) => (i % 2 === 0 ? "#f80" : "#aaf"))
-        .attr("fill", (_, i) => (i % 2 === 0 ? "orange" : "#44f"));
+        .attr("fill", (_, i) => (i % 2 === 0 ? "orange" : "#44f"))
 
-      update.exit().remove();
     }
   }, [data, width]);
 
